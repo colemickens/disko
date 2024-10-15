@@ -1,7 +1,14 @@
+{ pkgs, ... }:
+
 {
+  disko.imageBuilder.extraPostVM = ''
+      ${pkgs.zstd}/bin/zstd --compress $out/*raw
+      rm $out/*raw
+    '';
   disko.devices = {
     disk = {
       main = {
+        imageSize = "6G";
         type = "disk";
         device = "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_250GB_S21PNXAGB12345";
         content = {
